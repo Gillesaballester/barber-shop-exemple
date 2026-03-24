@@ -1115,7 +1115,7 @@
     <li><a href="#team">Équipe</a></li>
     <li><a href="#testimonials">Avis</a></li>
   </ul>
-  <a href="contact.html" class="nav-btn">Réserver</a>
+  <a href="#" class="nav-btn open-modal">Réserver</a>
 </nav>
 
 <!-- ======================== HERO ======================== -->
@@ -1140,7 +1140,7 @@
       Bienvenue là où la tradition rencontre l'excellence moderne.
     </p>
     <div class="hero-ctas">
-      <a href="contact.html" class="btn btn-gold"><span>Prendre Rendez-vous</span><span>→</span></a>
+      <a href="#" class="btn btn-gold open-modal"><span>Prendre Rendez-vous</span><span>→</span></a>
       <a href="#gallery" class="btn-ghost">
         <div class="ico">↓</div>
         <span>Découvrir</span>
@@ -1244,7 +1244,7 @@
         </div>
       </div>
 
-      <a href="contact.html" class="btn btn-gold"><span>Réserver votre séance</span><span>→</span></a>
+      <a href="#" class="btn btn-gold open-modal"><span>Réserver votre séance</span><span>→</span></a>
     </div>
 
   </div>
@@ -1278,7 +1278,7 @@
         <li><span class="name">Retouche contour</span><span class="price">15 €</span></li>
         <li><span class="name">Coupe enfant (−12 ans)</span><span class="price">20 €</span></li>
       </ul>
-      <a href="contact.html" class="svc-link">Réserver <span>→</span></a>
+      <a href="#" class="svc-link open-modal">Réserver <span>→</span></a>
     </div>
 
     <!-- 02 Premium -->
@@ -1296,7 +1296,7 @@
         <li><span class="name">Soin visage + coupe</span><span class="price">75 €</span></li>
         <li><span class="name">Coloration barbe</span><span class="price">35 €</span></li>
       </ul>
-      <a href="contact.html" class="svc-link">Réserver <span>→</span></a>
+      <a href="#" class="svc-link open-modal">Réserver <span>→</span></a>
     </div>
 
     <!-- 03 Royal -->
@@ -1314,7 +1314,7 @@
         <li><span class="name">Rituel barbe & soin</span><span class="price">90 €</span></li>
         <li><span class="name">Forfait mensuel illimité</span><span class="price">200 €</span></li>
       </ul>
-      <a href="contact.html" class="svc-link">Réserver <span>→</span></a>
+      <a href="#" class="svc-link open-modal">Réserver <span>→</span></a>
     </div>
 
   </div>
@@ -1487,7 +1487,7 @@
         <li><a href="#services">Services</a></li>
         <li><a href="#gallery">Galerie</a></li>
         <li><a href="#team">Équipe</a></li>
-        <li><a href="contact.html">Réservation</a></li>
+        <li><a href="#" class="open-modal">Réservation</a></li>
       </ul>
     </div>
     <div>
@@ -1665,6 +1665,196 @@ gsap.utils.toArray('.hero-vlines span').forEach((el, i) => {
     yPercent: -20 * (i + 1), ease:'none',
     scrollTrigger:{ trigger:'#hero', start:'top top', end:'bottom top', scrub:true }
   });
+});
+</script>
+
+
+<!-- ======================== MODAL RÉSERVATION ======================== -->
+<div id="bookingModal" style="
+  display:none;
+  position:fixed;inset:0;
+  z-index:9000;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+">
+  <!-- Backdrop -->
+  <div id="modalBackdrop" style="
+    position:absolute;inset:0;
+    background:rgba(0,0,0,.85);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+  "></div>
+
+  <!-- Panel -->
+  <div id="modalPanel" style="
+    position:relative;z-index:1;
+    background:var(--dark);
+    border:1px solid var(--border);
+    width:100%;max-width:720px;
+    max-height:90vh;
+    overflow-y:auto;
+    padding:52px 52px 48px;
+    opacity:0;transform:translateY(30px);
+  ">
+    <!-- Close -->
+    <button id="modalClose" style="
+      position:absolute;top:20px;right:20px;
+      background:transparent;border:1px solid var(--border);
+      color:var(--gray);font-size:1.1rem;
+      width:36px;height:36px;cursor:pointer;
+      transition:all .3s;display:flex;align-items:center;justify-content:center;
+    " onmouseenter="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'"
+       onmouseleave="this.style.borderColor='var(--border)';this.style.color='var(--gray)'">✕</button>
+
+    <!-- Header -->
+    <div style="margin-bottom:36px;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+        <div style="width:24px;height:1px;background:var(--gold);"></div>
+        <span style="font-size:.6rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);">Blade & Crown · Paris</span>
+      </div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;margin-bottom:6px;">
+        Prendre <em style="color:var(--gold);font-style:italic;">Rendez-vous</em>
+      </h2>
+      <p style="font-size:.82rem;color:var(--gray-light);line-height:1.7;">Confirmation par SMS sous 2 heures. Zéro attente garantie.</p>
+    </div>
+
+    <!-- Form -->
+    <form id="modalForm" style="display:flex;flex-direction:column;gap:18px;">
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div style="display:flex;flex-direction:column;gap:7px;">
+          <label style="font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gray);">Prénom</label>
+          <input type="text" placeholder="Alexandre" required style="background:var(--black);border:1px solid var(--border);color:var(--cream);font-family:'Inter',sans-serif;font-size:.87rem;padding:13px 16px;outline:none;transition:border-color .3s;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border)'">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:7px;">
+          <label style="font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gray);">Nom</label>
+          <input type="text" placeholder="Moreau" required style="background:var(--black);border:1px solid var(--border);color:var(--cream);font-family:'Inter',sans-serif;font-size:.87rem;padding:13px 16px;outline:none;transition:border-color .3s;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border)'">
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div style="display:flex;flex-direction:column;gap:7px;">
+          <label style="font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gray);">Téléphone</label>
+          <input type="tel" placeholder="06 12 34 56 78" required style="background:var(--black);border:1px solid var(--border);color:var(--cream);font-family:'Inter',sans-serif;font-size:.87rem;padding:13px 16px;outline:none;transition:border-color .3s;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border)'">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:7px;">
+          <label style="font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gray);">Email</label>
+          <input type="email" placeholder="vous@email.fr" required style="background:var(--black);border:1px solid var(--border);color:var(--cream);font-family:'Inter',sans-serif;font-size:.87rem;padding:13px 16px;outline:none;transition:border-color .3s;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border)'">
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:7px;">
+        <label style="font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gray);">Prestation</label>
+        <select required style="background:var(--black);border:1px solid var(--border);color:var(--cream);font-family:'Inter',sans-serif;font-size:.87rem;padding:13px 16px;outline:none;transition:border-color .3s;appearance:none;-webkit-appearance:none;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23777' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E\");background-repeat:no-repeat;background-position:right 16px center;padding-right:40px;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border)'">
+          <option value="" disabled selected>Choisissez une prestation</option>
+          <optgroup label="— Classic Cut">
+            <option>Coupe simple — 25 €</option>
+            <option>Coupe + finitions — 35 €</option>
+            <option>Retouche contour — 15 €</option>
+            <option>Coupe enfant (−12 ans) — 20 €</option>
+          </optgroup>
+          <optgroup label="— Premium Experience">
+            <option>Coupe + barbe complète — 65 €</option>
+            <option>Rasage au coupe-chou — 45 €</option>
+            <option>Soin visage + coupe — 75 €</option>
+            <option>Coloration barbe — 35 €</option>
+          </optgroup>
+          <optgroup label="— Royal Treatment">
+            <option>Package VIP complet — 120 €</option>
+            <option>Coupe + massage crânien — 85 €</option>
+            <option>Rituel barbe & soin — 90 €</option>
+            <option>Forfait mensuel illimité — 200 €</option>
+          </optgroup>
+        </select>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div style="display:flex;flex-direction:column;gap:7px;">
+          <label style="font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gray);">Date souhaitée</label>
+          <input type="date" id="modalDate" required style="background:var(--black);border:1px solid var(--border);color:var(--cream);font-family:'Inter',sans-serif;font-size:.87rem;padding:13px 16px;outline:none;transition:border-color .3s;color-scheme:dark;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border)'">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:7px;">
+          <label style="font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gray);">Créneau</label>
+          <select required style="background:var(--black);border:1px solid var(--border);color:var(--cream);font-family:'Inter',sans-serif;font-size:.87rem;padding:13px 16px;outline:none;transition:border-color .3s;appearance:none;-webkit-appearance:none;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23777' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E\");background-repeat:no-repeat;background-position:right 16px center;padding-right:40px;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border)'">
+            <option value="" disabled selected>Choisissez</option>
+            <option>9h00</option><option>9h30</option><option>10h00</option><option>10h30</option>
+            <option>11h00</option><option>11h30</option><option>14h00</option><option>14h30</option>
+            <option>15h00</option><option>15h30</option><option>16h00</option><option>16h30</option>
+            <option>17h00</option><option>17h30</option><option>18h00</option><option>18h30</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:20px;margin-top:6px;">
+        <button type="submit" style="
+          display:inline-flex;align-items:center;gap:12px;
+          padding:15px 36px;
+          background:linear-gradient(135deg,var(--gold-dark),var(--gold) 50%,var(--gold-light));
+          color:var(--black);font-family:'Inter',sans-serif;
+          font-size:.7rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+          border:none;cursor:pointer;position:relative;overflow:hidden;
+        ">
+          <span style="position:relative;z-index:1;">Confirmer</span>
+          <span style="position:relative;z-index:1;">→</span>
+        </button>
+        <p style="font-size:.72rem;color:var(--gray);line-height:1.6;">Confirmation SMS<br>sous 2 heures</p>
+      </div>
+
+    </form>
+
+    <!-- Success -->
+    <div id="modalSuccess" style="display:none;flex-direction:column;align-items:center;text-align:center;padding:40px 20px;gap:18px;">
+      <div style="width:60px;height:60px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:var(--gold);">✓</div>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;">Réservation <em style="color:var(--gold);font-style:italic;">Confirmée !</em></h3>
+      <p style="font-size:.85rem;color:var(--gray-light);line-height:1.75;max-width:340px;">Merci ! Vous recevrez une confirmation par SMS dans les 2 heures. À très bientôt chez Blade & Crown.</p>
+      <button onclick="closeModal()" style="margin-top:8px;padding:12px 28px;border:1px solid var(--border);background:transparent;color:var(--gray-light);font-family:'Inter',sans-serif;font-size:.68rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .3s;" onmouseenter="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseleave="this.style.borderColor='var(--border)';this.style.color='var(--gray-light)'">Fermer ✕</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* ---- MODAL ---- */
+const modal    = document.getElementById('bookingModal');
+const panel    = document.getElementById('modalPanel');
+const backdrop = document.getElementById('modalBackdrop');
+
+function openModal() {
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  gsap.to(panel, { opacity:1, y:0, duration:.45, ease:'power3.out' });
+  // reset form state
+  document.getElementById('modalForm').style.display    = 'flex';
+  document.getElementById('modalSuccess').style.display = 'none';
+  // set min date
+  document.getElementById('modalDate').min = new Date().toISOString().split('T')[0];
+}
+function closeModal() {
+  gsap.to(panel, { opacity:0, y:20, duration:.3, ease:'power2.in', onComplete() {
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+  }});
+}
+
+document.getElementById('modalClose').addEventListener('click', closeModal);
+backdrop.addEventListener('click', closeModal);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+document.querySelectorAll('.open-modal').forEach(el => {
+  el.addEventListener('click', e => { e.preventDefault(); openModal(); });
+});
+
+document.getElementById('modalForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const btn = this.querySelector('button[type=submit]');
+  btn.style.opacity = '.5'; btn.style.pointerEvents = 'none';
+  setTimeout(() => {
+    this.style.display = 'none';
+    const s = document.getElementById('modalSuccess');
+    s.style.display = 'flex';
+    gsap.from(s, { opacity:0, y:20, duration:.6, ease:'power3.out' });
+  }, 700);
 });
 </script>
 
